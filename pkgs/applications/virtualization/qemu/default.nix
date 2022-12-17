@@ -1,4 +1,4 @@
-{ lib, stdenv, fetchurl, fetchpatch, python3, zlib, pkg-config, glib, buildPackages
+{ lib, stdenv, fetchurl, fetchFromGitHub, fetchpatch, python3, zlib, pkg-config, glib, buildPackages
 , perl, pixman, vde2, alsa-lib, texinfo, flex
 , bison, lzo, snappy, libaio, libtasn1, gnutls, nettle, curl, ninja, meson, sigtool
 , makeWrapper, runtimeShell, removeReferencesTo
@@ -44,9 +44,12 @@ stdenv.mkDerivation rec {
     + lib.optionalString nixosTestRunner "-for-vm-tests";
   version = "7.1.0";
 
-  src = fetchurl {
-    url = "https://download.qemu.org/qemu-${version}.tar.xz";
-    sha256 = "1rmvrgqjhrvcmchnz170dxvrrf14n6nm39y8ivrprmfydd9lwqx0";
+  src = fetchFromGitHub {
+    owner = "Chion82";
+    repo = "qemu-pinning";
+    rev = "8551c90f99ebd4460fa5febc9b7f91732a52cfe1";
+    sha256 = "kkuKlvnSSxelYBG5rP+jfRUJ+369Cvyb11S5qIpso64=";
+    fetchSubmodules = true;
   };
 
   depsBuildBuild = [ buildPackages.stdenv.cc ];
